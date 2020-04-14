@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30001.183
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCPeer", "UCPeer\UCPeer.csproj", "{E30F265B-05C1-412F-B329-850BF683A28E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCPeer.UnitTests", "UCPeer.UnitTests\UCPeer.UnitTests.csproj", "{80C63C4F-1418-41E9-B3C2-501469F31454}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E30F265B-05C1-412F-B329-850BF683A28E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E30F265B-05C1-412F-B329-850BF683A28E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E30F265B-05C1-412F-B329-850BF683A28E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E30F265B-05C1-412F-B329-850BF683A28E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80C63C4F-1418-41E9-B3C2-501469F31454}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80C63C4F-1418-41E9-B3C2-501469F31454}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80C63C4F-1418-41E9-B3C2-501469F31454}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80C63C4F-1418-41E9-B3C2-501469F31454}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02032BD4-5EF8-4754-9CBB-E403C0D1A4BB}
+	EndGlobalSection
+EndGlobal
