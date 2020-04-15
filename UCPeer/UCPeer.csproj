@@ -32,6 +32,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Builder\INodeBuilder.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="UrbanCoder_Icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

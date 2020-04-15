@@ -1,8 +1,10 @@
-﻿namespace UCPeer
+﻿using System.Threading.Tasks;
+
+namespace UCPeer
 {
 	public interface IMiddleware<TNodeContract> where TNodeContract : new()
 	{
-		void OutData(TNodeContract model);
-		void InData(TNodeContract model);
+		Task OutDataAsync(TNodeContract model, IMiddleware<TNodeContract> nextMiddleware);
+		Task InDataAsync(TNodeContract model, IMiddleware<TNodeContract> nextMiddleware);
 	}
 }

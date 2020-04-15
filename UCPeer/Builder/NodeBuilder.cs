@@ -1,20 +1,38 @@
-﻿namespace UCPeer.Builder
+﻿using System;
+using System.Collections.Generic;
+
+namespace UCPeer.Builder
 {
-	public class NodeBuilder : INodeBuilder<NodeContract>
+	public class NodeBuilder<TNodeContract>
+		where TNodeContract : class, new()
 	{
-		public INode<NodeContract> Build()
+		private readonly List<MiddlewareWrapper> _middlewares = new List<MiddlewareWrapper>();
+
+		public Node<TNodeContract> Build()
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public INodeBuilder<NodeContract> Use<TMiddleware>() where TMiddleware : IMiddleware<NodeContract>, new()
+		public NodeBuilder<TNodeContract> Use(Type middlewareType, MiddlewareScope scope, object options)
 		{
-			throw new System.NotImplementedException();
+			var wrapper = new MiddlewareWrapper(middlewareType, typeof(TNodeContract), scope, options);
+			_middlewares.Add(wrapper);
+			return this;
 		}
 
-		public INodeBuilder<NodeContract> Use<TMiddleware>(TMiddleware singleton) where TMiddleware : IMiddleware<NodeContract>
+		public NodeBuilder<TNodeContract> Use(Type middlewareType, MiddlewareScope scope, Type optionsType, Delegate optionsBuilder)
 		{
-			throw new System.NotImplementedException();
+			var wrapper = new MiddlewareWrapper(middlewareType, typeof(TNodeContract),  scope, optionsType, optionsBuilder);
+			_middlewares.Add(wrapper);
+			return this;
+		}
+
+		public NodeBuilder<TNodeContract> Use<TMiddleware>(TMiddleware singleton)
+			where TMiddleware : class, IMiddleware<TNodeContract>, new()
+		{
+			var wrapper = new MiddlewareWrapper(typeof(TMiddleware), typeof(TNodeContract), singleton);
+			_middlewares.Add(wrapper);
+			return this;
 		}
 	}
 }
