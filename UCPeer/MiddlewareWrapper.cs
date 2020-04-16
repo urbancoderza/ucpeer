@@ -5,28 +5,24 @@ namespace UCPeer
 {
 	internal sealed class MiddlewareWrapper
 	{
-		private static object _singleton;
-		private static readonly object _singletonLock = new object();
+		private object _singleton;
+		private readonly object _singletonLock = new object();
 		private readonly Type _middlewareType;
-		//private readonly Type _contractType;
 		private readonly Type _optionsType;
 		private readonly Delegate _optionsBuilder;
 		private readonly MiddlewareScope _scope;
 		private readonly object _options;
 		private readonly bool _hasOptions;
-		private readonly Type _middlewareInterfaceType;
 
-		public MiddlewareWrapper(Type middlewareType, Type contractType, MiddlewareScope scope, Type optionsType = null, Delegate optionsBuilder = null)
+		public MiddlewareWrapper(Type middlewareType, MiddlewareScope scope, Type optionsType = null, Delegate optionsBuilder = null)
 		{
 			if (middlewareType == null)
 				throw new ArgumentNullException(nameof(middlewareType));
-			if (contractType == null)
-				throw new ArgumentNullException(nameof(contractType));
 			if ((optionsType == null && optionsBuilder != null) ||
 				(optionsType != null && optionsBuilder == null))
 				throw new ArgumentException($"If either '{nameof(optionsType)}' or '{nameof(optionsBuilder)}' is specified (e.g. not null), then the other one must also be specified.");
 
-			ValidateTypes(middlewareType, contractType, out _middlewareInterfaceType, out _hasOptions, optionsType, optionsBuilder);
+			ValidateTypes(middlewareType, out _hasOptions, optionsType, optionsBuilder);
 
 			_middlewareType = middlewareType;
 			_optionsType = optionsType;
@@ -34,29 +30,25 @@ namespace UCPeer
 			_scope = scope;
 		}
 
-		public MiddlewareWrapper(Type middlewareType, Type contractType, MiddlewareScope scope, object options = null)
+		public MiddlewareWrapper(Type middlewareType, MiddlewareScope scope, object options = null)
 		{
 			if (middlewareType == null)
 				throw new ArgumentNullException(nameof(middlewareType));
-			if (contractType == null)
-				throw new ArgumentNullException(nameof(contractType));
 			
-			ValidateTypes(middlewareType, contractType, out _middlewareInterfaceType, out _hasOptions, options?.GetType(), null, options);
+			ValidateTypes(middlewareType, out _hasOptions, options?.GetType(), null, options);
 
 			_middlewareType = middlewareType;
-			_optionsType = options.GetType();
+			_optionsType = options?.GetType();
 			_options = options;
 			_scope = scope;
 		}
 
-		public MiddlewareWrapper(Type middlewareType, Type contractType, object singleton)
+		public MiddlewareWrapper(Type middlewareType, object singleton)
 		{
 			if (middlewareType == null)
 				throw new ArgumentNullException(nameof(middlewareType));
-			if (contractType == null)
-				throw new ArgumentNullException(nameof(contractType));
 
-			ValidateTypes(middlewareType, contractType, out _middlewareInterfaceType, out _hasOptions, null, null, null);
+			ValidateTypes(middlewareType, out _hasOptions, null, null, null);
 
 			_middlewareType = middlewareType;
 			_scope = MiddlewareScope.Singleton;
@@ -64,8 +56,10 @@ namespace UCPeer
 			_singleton = singleton;
 		}
 
-		private static void ValidateTypes(Type middlewareType, Type contractType, out Type middlewareInterfaceType, out bool hasOptions, Type optionsType = null, Delegate optionsBuilder = null, object options = null)
+		private static void ValidateTypes(Type middlewareType, out bool hasOptions, Type optionsType = null, Delegate optionsBuilder = null, object options = null)
 		{
+			var interfaceMiddlewareType = typeof(IMiddleware);
+
 			var errorMsg = $"In order for an object of type '{middlewareType.Name}' to be used as a middleware, it must:{Environment.NewLine}";
 			var typeError = false;
 
@@ -75,10 +69,10 @@ namespace UCPeer
 				errorMsg += "\tbe a reference type (class)";
 			}
 
-			if (!middlewareType.IsAssignableTo("UCPeer.IMiddleware", out middlewareInterfaceType, contractType))
+			if (!interfaceMiddlewareType.IsAssignableFrom(middlewareType))
 			{
 				typeError = true;
-				errorMsg += $"\timplement '{middlewareInterfaceType}'";
+				errorMsg += $"\timplement '{interfaceMiddlewareType}'";
 			}
 
 			if ((optionsType != null && optionsBuilder != null) || options != null)
@@ -102,23 +96,6 @@ namespace UCPeer
 
 			if (typeError)
 				throw new ArgumentException(errorMsg, nameof(middlewareType));
-
-			errorMsg = $"In order for an object of type '{contractType.Name}' to be used as a contract type, it must:{Environment.NewLine}";
-			typeError = false;
-			if (!contractType.IsClass)
-			{
-				typeError = true;
-				errorMsg += "\tbe a reference type (class)";
-			}
-
-			if (!contractType.HasConstructor())
-			{
-				typeError = true;
-				errorMsg += "\thave a constructor accepting no arguments";
-			}
-
-			if (typeError)
-				throw new ArgumentException(errorMsg, nameof(contractType));
 
 			if (hasOptions)
 			{
@@ -145,9 +122,8 @@ namespace UCPeer
 			}
 		}
 
-		public object GetInstance(out Type middlewareInterfaceType)
+		public object GetInstance()
 		{
-			middlewareInterfaceType = _middlewareInterfaceType;
 			object toReturn = null;
 
 			switch (_scope)

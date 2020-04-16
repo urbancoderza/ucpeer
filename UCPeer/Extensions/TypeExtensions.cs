@@ -4,60 +4,51 @@ namespace UCPeer.Extensions
 {
 	internal static class TypeExtensions
 	{
-		public static bool IsAssignableTo(this Type self, string baseTypeName, params Type[] genericArgs)
-		{
-			if (self == null)
-				return false;
-			if (string.IsNullOrWhiteSpace(baseTypeName))
-				return false;
+		//public static bool IsAssignableTo(this Type self, string baseTypeName, params Type[] genericArgs)
+		//{
+		//	if (self == null)
+		//		return false;
+		//	if (string.IsNullOrWhiteSpace(baseTypeName))
+		//		return false;
 
-			Type baseType;
-			if (genericArgs?.Length == 0)
-			{
-				baseType = Type.GetType(baseTypeName);
-				return baseType.IsAssignableFrom(self);
-			}
+		//	Type baseType;
+		//	if (genericArgs?.Length == 0)
+		//	{
+		//		baseType = Type.GetType(baseTypeName);
+		//		return baseType.IsAssignableFrom(self);
+		//	}
 
-			baseTypeName += "`" + genericArgs.Length + "[";
-			foreach (var t in genericArgs)
-				baseTypeName += t.FullName + ",";
-			baseTypeName = baseTypeName[0..^1];
-			baseTypeName += "]";
+		//	baseTypeName += "`" + genericArgs.Length + "[";
+		//	foreach (var t in genericArgs)
+		//		baseTypeName += t.FullName + ",";
+		//	baseTypeName = baseTypeName[0..^1];
+		//	baseTypeName += "]";
 
-			baseType = Type.GetType(baseTypeName);
-			if (baseType == null)
-				return false;
+		//	baseType = Type.GetType(baseTypeName);
+		//	if (baseType == null)
+		//		return false;
 
-			return baseType.IsAssignableFrom(self);
-		}
+		//	return baseType.IsAssignableFrom(self);
+		//}
 
-		public static bool IsAssignableTo(this Type self, string baseTypeName, out Type baseType, params Type[] genericArgs)
-		{
-			baseType = null;
+		//public static bool IsAssignableToMiddleware(this Type self, out Type middlewareInterfaceType)
+		//{
+		//	middlewareInterfaceType = null;
 
-			if (self == null)
-				return false;
-			if (string.IsNullOrWhiteSpace(baseTypeName))
-				return false;
+		//	if (self == null)
+		//		return false;
 
-			if (genericArgs?.Length == 0)
-			{
-				baseType = Type.GetType(baseTypeName);
-				return baseType.IsAssignableFrom(self);
-			}
+		//	var baseTypeName = typeof(IMiddleware).FullName;
+		//	baseTypeName += "[[" + genericArg.AssemblyQualifiedName + "]], ";
+		//	baseTypeName += Assembly.GetExecutingAssembly().FullName;
 
-			baseTypeName += "`" + genericArgs.Length + "[";
-			foreach (var t in genericArgs)
-				baseTypeName += t.FullName + ",";
-			baseTypeName = baseTypeName[0..^1];
-			baseTypeName += "]";
+		//	middlewareInterfaceType = Type.GetType(baseTypeName, false, true);
+			
+		//	if (middlewareInterfaceType == null)
+		//		return false;
 
-			baseType = Type.GetType(baseTypeName);
-			if (baseType == null)
-				return false;
-
-			return baseType.IsAssignableFrom(self);
-		}
+		//	return middlewareInterfaceType.IsAssignableFrom(self);
+		//}
 
 		public static bool HasConstructor(this Type self, params Type[] args)
 		{
