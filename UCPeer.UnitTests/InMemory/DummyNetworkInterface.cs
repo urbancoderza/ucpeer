@@ -66,6 +66,11 @@ namespace UCPeer.UnitTests.InMemory
 			await Task.CompletedTask;
 		}
 
+		public Task CloseConnectionAsync(IPEndPoint localEndPoint, IPEndPoint remoteEndPoint)
+		{
+			throw new NotImplementedException();
+		}
+
 		public bool Running => true;
 	}
 }

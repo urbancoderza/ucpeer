@@ -9,5 +9,6 @@ namespace UCPeer
 		Task<PipelineContext> ReceiveAsync(CancellationToken cancelToken);
 		Task SendAsync(PipelineContext context);
 		bool Running { get; }
+		Task CloseConnectionAsync(IPEndPoint localEndPoint, IPEndPoint remoteEndPoint);
 	}
 }

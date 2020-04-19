@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 
-namespace UCPeer
+namespace UCPeer.MsgPack
 {
-	public sealed partial class Node : IDisposable
+	public sealed partial class MsgPackNetwork : IDisposable
 	{
 		private volatile int _disposed;
 
@@ -13,16 +13,22 @@ namespace UCPeer
 			{
 				_cancelTokenSource.Cancel(false);
 
-				if (_network is IDisposable dispNet)
-					dispNet.Dispose();
+				if (_listener != null)
+				{
+					_listener.Stop();
+				}
 
 				_cancelTokenSource.Dispose();
+
+				_connections.Dispose();
+
+				_receiveQueue.Dispose();
 			}
 
 			GC.SuppressFinalize(this);
 		}
 
-		~Node()
+		~MsgPackNetwork()
 		{
 			Dispose();
 		}

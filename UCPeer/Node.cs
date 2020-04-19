@@ -27,7 +27,7 @@ namespace UCPeer
 			_outDelegateAsync = GetDelegateChainOut(_middlewaresOut.GetEnumerator());
 
 			_receiveWorker = new Task(t => Receive(_cancelTokenSource.Token), _cancelTokenSource.Token, TaskCreationOptions.LongRunning);
-			_receiveWorker.Start();			
+			_receiveWorker.Start();
 		}
 
 		private void Receive(CancellationToken token)
@@ -39,6 +39,7 @@ namespace UCPeer
 					while (_network.Running)
 					{
 						var context = _network.ReceiveAsync(token).Result;
+						context.NetworkInterface = _network;
 						token.ThrowIfCancellationRequested();
 
 						if (context != null)

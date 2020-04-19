@@ -10,5 +10,6 @@ namespace UCPeer
 		public byte[] Raw { get; set; }
 		public DateTime? ReceivedTime { get; set; }
 		public object State { get; set; }
+		public INetwork NetworkInterface { get; internal set; }
 	}
 }
