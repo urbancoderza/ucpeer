@@ -7,10 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UCPeer", "UCPeer\UCPeer.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UCPeer.UnitTests", "UCPeer.UnitTests\UCPeer.UnitTests.csproj", "{80C63C4F-1418-41E9-B3C2-501469F31454}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScratchPad", "..\..\Temp\ScratchPad\ScratchPad.csproj", "{67B11D8C-A52C-4108-93BD-8F5F4F697451}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScratchPad.Lib", "..\..\Temp\ScratchPad.Lib\ScratchPad.Lib.csproj", "{3850DA28-8377-4735-9442-695DE8417317}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCPeer.MsgPack", "UCPeer.MsgPack\UCPeer.MsgPack.csproj", "{58B530A9-4278-4D65-8805-049D86D991FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCPeer.IntegrationTests", "UCPeer.IntegrationTests\UCPeer.IntegrationTests.csproj", "{FC408B79-A779-4A04-BD3E-9B7B8EA668F0}"
@@ -29,14 +25,6 @@ Global
 		{80C63C4F-1418-41E9-B3C2-501469F31454}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80C63C4F-1418-41E9-B3C2-501469F31454}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80C63C4F-1418-41E9-B3C2-501469F31454}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67B11D8C-A52C-4108-93BD-8F5F4F697451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67B11D8C-A52C-4108-93BD-8F5F4F697451}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67B11D8C-A52C-4108-93BD-8F5F4F697451}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67B11D8C-A52C-4108-93BD-8F5F4F697451}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3850DA28-8377-4735-9442-695DE8417317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3850DA28-8377-4735-9442-695DE8417317}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3850DA28-8377-4735-9442-695DE8417317}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3850DA28-8377-4735-9442-695DE8417317}.Release|Any CPU.Build.0 = Release|Any CPU
 		{58B530A9-4278-4D65-8805-049D86D991FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{58B530A9-4278-4D65-8805-049D86D991FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58B530A9-4278-4D65-8805-049D86D991FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
