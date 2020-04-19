@@ -16,6 +16,9 @@
     <PackageTags>peer peer-to-peer p2p peer2peer tcp udp netwokring data ip messaging socket sockets msgpack</PackageTags>
     <PackageReleaseNotes>* Initial creation.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -41,10 +44,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="UCPeer" Version="1.0.2" />
+    <PackageReference Include="UCSimpleSocket" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SIM\SimpleSocket\UCSimpleSocket.csproj" />
     <ProjectReference Include="..\UCPeer\UCPeer.csproj" />
   </ItemGroup>
 

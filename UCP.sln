@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCPeer.MsgPack", "UCPeer.Ms
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCPeer.IntegrationTests", "UCPeer.IntegrationTests\UCPeer.IntegrationTests.csproj", "{FC408B79-A779-4A04-BD3E-9B7B8EA668F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UCSimpleSocket", "..\SIM\SimpleSocket\UCSimpleSocket.csproj", "{D82310B2-F32E-4F4C-8FB6-67BE2D8FF211}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{FC408B79-A779-4A04-BD3E-9B7B8EA668F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC408B79-A779-4A04-BD3E-9B7B8EA668F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC408B79-A779-4A04-BD3E-9B7B8EA668F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D82310B2-F32E-4F4C-8FB6-67BE2D8FF211}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D82310B2-F32E-4F4C-8FB6-67BE2D8FF211}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D82310B2-F32E-4F4C-8FB6-67BE2D8FF211}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D82310B2-F32E-4F4C-8FB6-67BE2D8FF211}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

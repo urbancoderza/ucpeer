@@ -14,11 +14,11 @@
     <RepositoryUrl>https://github.com/urbancoderza/ucpeer</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>peer peer-to-peer p2p peer2peer tcp udp netwokring data ip messaging socket sockets</PackageTags>
-    <PackageReleaseNotes>* Initial creation.</PackageReleaseNotes>
+    <PackageReleaseNotes>* Fix various minor bugs.</PackageReleaseNotes>
     <NeutralLanguage>English</NeutralLanguage>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
-    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
