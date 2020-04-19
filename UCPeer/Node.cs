@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,10 +14,12 @@ namespace UCPeer
 		private readonly Func<PipelineContext, Task> _inDelegateAsync;
 		private readonly Task _receiveWorker;
 		private readonly CancellationTokenSource _cancelTokenSource = new CancellationTokenSource();
+		private readonly Func<PipelineContext, Task> _endpointAction;
 
-		internal Node(INetwork network, IEnumerable<MiddlewareWrapper> middlewaresIn, IEnumerable<MiddlewareWrapper> middlewaresOut)
+		internal Node(INetwork network, Func<PipelineContext, Task> endpointAction, IEnumerable<MiddlewareWrapper> middlewaresIn, IEnumerable<MiddlewareWrapper> middlewaresOut)
 		{
 			_network = network;
+			_endpointAction = endpointAction;
 			_middlewaresIn = middlewaresIn;
 			_middlewaresOut = middlewaresOut;
 
@@ -26,9 +27,7 @@ namespace UCPeer
 			_outDelegateAsync = GetDelegateChainOut(_middlewaresOut.GetEnumerator());
 
 			_receiveWorker = new Task(t => Receive(_cancelTokenSource.Token), _cancelTokenSource.Token, TaskCreationOptions.LongRunning);
-			_receiveWorker.Start();
-
-			
+			_receiveWorker.Start();			
 		}
 
 		private void Receive(CancellationToken token)
@@ -55,20 +54,12 @@ namespace UCPeer
 
 		private void HandleNewDataReceived(PipelineContext context)
 		{
-			var task = new Task(() =>
+			var task = new Task(async () =>
 			{
-				_inDelegateAsync(context).ConfigureAwait(false);
+				await _inDelegateAsync(context).ConfigureAwait(false);
+				await (_endpointAction?.Invoke(context)).ConfigureAwait(false);
 			});
 
-			task.ContinueWith((t,o) =>
-			{
-				throw t.Exception;
-			},
-			TaskContinuationOptions.OnlyOnFaulted | 
-			TaskContinuationOptions.NotOnCanceled | 
-			TaskContinuationOptions.NotOnRanToCompletion | 
-			TaskContinuationOptions.RunContinuationsAsynchronously,
-			TaskScheduler.Default);
 			task.Start();
 		}
 

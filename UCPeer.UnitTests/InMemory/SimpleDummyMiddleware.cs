@@ -8,9 +8,10 @@ namespace UCPeer.UnitTests.InMemory
 	{
 		public static string Tag;
 
-		public Task InDataAsync(PipelineContext context, Func<PipelineContext, Task> nextAction)
+		public async Task InDataAsync(PipelineContext context, Func<PipelineContext, Task> nextAction)
 		{
-			throw new NotImplementedException();
+			if (nextAction != null)
+				await nextAction(context);
 		}
 
 		public async Task OutDataAsync(PipelineContext context, Func<PipelineContext, Task> nextAction)

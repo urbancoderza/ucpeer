@@ -12,9 +12,10 @@ namespace UCPeer.UnitTests.InMemory
 			_options = options;
 		}
 
-		public Task InDataAsync(PipelineContext context, Func<PipelineContext, Task> nextAction)
+		public async Task InDataAsync(PipelineContext context, Func<PipelineContext, Task> nextAction)
 		{
-			throw new NotImplementedException();
+			if (nextAction != null)
+				await nextAction(context);
 		}
 
 		public async Task OutDataAsync(PipelineContext context, Func<PipelineContext, Task> nextAction)

@@ -6,9 +6,17 @@ namespace UCPeer.UnitTests.InMemory
 {
 	internal sealed class FirstMiddleware : IMiddleware
 	{
-		public Task InDataAsync(PipelineContext context, Func<PipelineContext, Task> nextAction)
+		public async Task InDataAsync(PipelineContext context, Func<PipelineContext, Task> nextAction)
 		{
-			throw new NotImplementedException();
+			if (!(context.State is InMemoryNodeContract state))
+			{
+				state = new InMemoryNodeContract();
+				context.State = state;
+			}
+			state.Id = "Lekker";
+
+			if (nextAction != null)
+				await nextAction(context);
 		}
 
 		public async Task OutDataAsync(PipelineContext context, Func<PipelineContext, Task> nextAction)

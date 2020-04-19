@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace UCPeer.Builder
 {
@@ -8,6 +9,7 @@ namespace UCPeer.Builder
 	{
 		private readonly List<MiddlewareWrapper> _middlewares = new List<MiddlewareWrapper>();
 		private INetwork _network;
+		private Func<PipelineContext, Task> _endpointAction;
 
 		public Node Build()
 		{
@@ -17,7 +19,7 @@ namespace UCPeer.Builder
 				throw new NodePipelineException("At least one middleware must be specified");
 
 			var reversedMiddlewares = ((IEnumerable<MiddlewareWrapper>)_middlewares).Reverse();
-			return new Node(_network, _middlewares, reversedMiddlewares);
+			return new Node(_network, _endpointAction, _middlewares, reversedMiddlewares);
 		}
 
 		public NodeBuilder Use(Type middlewareType, MiddlewareScope scope, object options)
@@ -44,6 +46,12 @@ namespace UCPeer.Builder
 		public NodeBuilder UseNetwork(INetwork network)
 		{
 			_network = network;
+			return this;
+		}
+
+		public NodeBuilder UseEndpoint(Func<PipelineContext, Task> endpointAction)
+		{
+			_endpointAction = endpointAction;
 			return this;
 		}
 	}
